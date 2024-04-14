@@ -24,7 +24,7 @@ export const colors = {
     0: "#edfaef",
     1: "#e4f8e7",
     2: "#c7f1ce",
-    3: "#4bd161",
+    3: "#4CD362",
     4: "#44bc57",
     5: "#3ca74e",
     6: "#389d49",

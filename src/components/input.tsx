@@ -5,7 +5,7 @@ import { colors } from "@/styles/colors"
 
 function Input({ children }: { children: ReactNode }) {
   return (
-    <View className="w-full h-14 flex-row items-center gap-3 border p-3 rounded-lg">
+    <View className="w-full flex-row h-16 bg-white-0 shadow-md shadow-neutral-800 items-center gap-3 p-3 rounded-lg">
       {children}
     </View>
   )

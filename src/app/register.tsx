@@ -6,7 +6,7 @@ import { Link } from "expo-router"
 import CheckBox from "expo-checkbox"
 import { useState } from "react"
 
-export default function Home() {
+export default function Register() {
   const [checked, setChecked] = useState(false)
 
   return (
@@ -20,11 +20,19 @@ export default function Home() {
         </View>
 
         <View className="gap-8 items-center">
-          <Text className="text-xl text-black-3 font-bold">Acesse sua conta</Text>
+          <Text className="text-xl text-black-3 font-bold">Crie sua conta</Text>
 
           <View className="gap-3">
             <Input>
+              <Input.Field placeholder="Nome" keyboardType="default" />
+            </Input>
+
+            <Input>
               <Input.Field placeholder="E-mail" keyboardType="email-address" />
+            </Input>
+
+            <Input>
+              <Input.Field placeholder="CNPJ" keyboardType="number-pad" />
             </Input>
 
             <Input>
@@ -32,24 +40,11 @@ export default function Home() {
             </Input>
           </View>
 
-          <View className="flex-row w-full justify-between">
-            <Text>Esqueci minha senha</Text>
-
-            <View className="flex-row gap-3">
-              <CheckBox
-                value={checked}
-                onValueChange={setChecked}
-                color={checked ? colors.primary[3] : undefined}
-              />
-              <Text>Lembre-me</Text>
-            </View>
-          </View>
-
-          <Button title="Acessar" />
+          <Button title="Criar" />
 
           <Text>
-            Ainda não tem uma conta?{" "}
-            <Link href="/register" className="text-primary-6 font-bold">Cadastre-se</Link>
+            Já tem uma conta?{" "}
+            <Link href="/" className="text-primary-6 font-bold">Acesse</Link>
           </Text>
         </View>
       </View>
