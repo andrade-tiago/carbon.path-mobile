@@ -1,13 +1,41 @@
-import { View, Image, Text, StatusBar } from "react-native"
+import { View, Image, Text, StatusBar, Alert } from "react-native"
 import { Input } from "@/components/input"
 import { Button } from "@/components/button"
 import { colors } from "@/styles/colors"
-import { Link } from "expo-router"
+import { Link, router } from "expo-router"
 import CheckBox from "expo-checkbox"
 import { useState } from "react"
+import { z } from "zod"
 
 export default function Home() {
-  const [checked, setChecked] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [rememberPass, setRememberPass] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const schema = z.object({
+    email: z.string().email("E-mail inválido!"),
+    password: z.string(),
+    rememberPass: z.boolean(),
+  })
+
+  function handlerLogin() {
+    setIsLoading(true)
+
+    try {
+      schema.parse({
+        email,
+        password,
+        rememberPass
+      })
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        Alert.alert("Oops!", error.issues[0].message)
+      } 
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <View className="flex-1 bg-white-0 justify-center items-center p-8">
@@ -24,11 +52,19 @@ export default function Home() {
 
           <View className="gap-3">
             <Input>
-              <Input.Field placeholder="E-mail" keyboardType="email-address" />
+              <Input.Field
+                placeholder="E-mail"
+                keyboardType="email-address"
+                onChangeText={setEmail}
+              />
             </Input>
 
             <Input>
-              <Input.Field placeholder="Senha" keyboardType="visible-password" />
+              <Input.Field
+                placeholder="Senha"
+                keyboardType="visible-password"
+                onChangeText={setPassword}
+              />
             </Input>
           </View>
 
@@ -37,15 +73,20 @@ export default function Home() {
 
             <View className="flex-row gap-3">
               <CheckBox
-                value={checked}
-                onValueChange={setChecked}
-                color={checked ? colors.primary[3] : undefined}
+                value={rememberPass}
+                onValueChange={setRememberPass}
+                color={rememberPass ? colors.primary[3] : undefined}
               />
               <Text>Lembre-me</Text>
             </View>
           </View>
 
-          <Button title="Acessar" />
+          <Button
+            title="Acessar"
+            disabled={!email.trim() || !password.trim()}
+            isLoading={isLoading}
+            onPress={handlerLogin}
+          />
 
           <Text>
             Ainda não tem uma conta?{" "}

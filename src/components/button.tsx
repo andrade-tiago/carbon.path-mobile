@@ -7,16 +7,19 @@ type Props = TouchableOpacityProps & {
   isLoading?: boolean 
 }
 
-export function Button({ title, isLoading = false, ...rest }: Props) {
+export function Button({ title, isLoading = false, disabled = false, ...rest }: Props) {
   return (
     <TouchableOpacity
       activeOpacity={.7}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
       className="w-full rounded-lg overflow-hidden h-16"
       {...rest}
     >
       <LinearGradient
-        colors={[ colors.primary[3], colors.secondary[4] ]}
+        colors={ disabled
+          ? [ colors.black[2], colors.black[2] ]
+          : [ colors.primary[3], colors.secondary[4] ]
+        }
         start={{ x: 0, y: .5 }}
         className="flex-1 items-center justify-center"
       >
