@@ -1,50 +1,40 @@
 import { View, Image, Text, StatusBar, Alert } from "react-native"
 import { Input } from "@/components/input"
 import { Button } from "@/components/button"
+import { colors } from "@/styles/colors"
 import { Link, router } from "expo-router"
+import CheckBox from "expo-checkbox"
 import { useState } from "react"
 import { z } from "zod"
 import { api } from "@/server/api"
 import axios from "axios"
 import { useCompanyLoginStore } from "@/store/company-login-store"
 
-export default function Register() {
-  const [name, setName] = useState("")
+export default function Login() {
   const [email, setEmail] = useState("")
-  const [cnpj, setCnpj] = useState("")
   const [password, setPassword] = useState("")
+  const [rememberPass, setRememberPass] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const companyLoginStore = useCompanyLoginStore()
 
   const schema = z.object({
-    name: z.string().min(2, "Nome muito curto!"),
     email: z.string().email("E-mail inválido!"),
-    cnpj: z.string().regex(/^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}\-?\d{2}$/, "CNPJ inexistente!"),
-    password: z.string()
-      .min(8, "A senha deve ter no mínimo 8 caracteres.")
-      .regex(
-        /^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).+$/,
-        "A senha deve conter letras maiúsculas, minúsculas, números e carcteres especiais."
-      ),
+    password: z.string(),
+    rememberPass: z.boolean(),
   })
 
-  async function handlerRegister() {
+  async function handlerLogin() {
     try {
       schema.parse({
-        name,
         email,
-        cnpj,
         password,
+        rememberPass
       })
 
       setIsLoading(true)
 
-      // const registerResponse = await api.post("/", {name, email, cnpj, password})
-
-      // if (registerResponse)
-
-      // const loginResponse = await api.post("/", { email, password }) 
+      // const loginResponse = await api.get("/", { email, password })
 
       // if (loginResponse)
 
@@ -58,7 +48,7 @@ export default function Register() {
         Alert.alert("Oops!", error.issues[0].message)
       }
       else if (axios.isAxiosError(error)) {
-        Alert.alert("Cadastro", "Não foi possível realizar o caadastro!")
+        Alert.alert("Login", "Não foi possível realizar o login!")
       }
     }
   }
@@ -74,35 +64,49 @@ export default function Register() {
         </View>
 
         <View className="gap-8 items-center">
-          <Text className="text-xl text-black-3 font-bold">Crie sua conta</Text>
+          <Text className="text-xl text-black-3 font-bold">Acesse sua conta</Text>
 
           <View className="gap-3">
             <Input>
-              <Input.Field placeholder="Nome" keyboardType="default" onChangeText={setName} />
+              <Input.Field
+                placeholder="E-mail"
+                keyboardType="email-address"
+                onChangeText={setEmail}
+              />
             </Input>
 
             <Input>
-              <Input.Field placeholder="E-mail" keyboardType="email-address" onChangeText={setEmail} />
-            </Input>
-
-            <Input>
-              <Input.Field placeholder="CNPJ" keyboardType="number-pad" onChangeText={setCnpj} />
-            </Input>
-
-            <Input>
-              <Input.Field placeholder="Senha" keyboardType="visible-password" onChangeText={setPassword} />
+              <Input.Field
+                placeholder="Senha"
+                keyboardType="visible-password"
+                onChangeText={setPassword}
+              />
             </Input>
           </View>
 
+          <View className="flex-row w-full justify-between">
+            <Text>Esqueci minha senha</Text>
+
+            <View className="flex-row gap-3">
+              <CheckBox
+                value={rememberPass}
+                onValueChange={setRememberPass}
+                color={rememberPass ? colors.primary[3] : undefined}
+              />
+              <Text>Lembre-me</Text>
+            </View>
+          </View>
+
           <Button
-            title="Criar"
-            onPress={handlerRegister}
-            disabled={!(name.trim() && email.trim() && cnpj.trim() && password.trim())}
+            title="Acessar"
+            disabled={!email.trim() || !password.trim()}
+            isLoading={isLoading}
+            onPress={handlerLogin}
           />
 
           <Text>
-            Já tem uma conta?{" "}
-            <Link href="/" className="text-primary-6 font-bold">Acesse</Link>
+            Ainda não tem uma conta?{" "}
+            <Link href="/register" className="text-primary-6 font-bold">Cadastre-se</Link>
           </Text>
         </View>
       </View>
