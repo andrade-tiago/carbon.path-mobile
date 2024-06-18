@@ -5,34 +5,51 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 export default function ProfileScreen() {
   const [isUpdatingProfile, setIsUpdatingProfile] = useState<boolean>(false)
   const [popupActive, setPopupActive] = useState<boolean>(false)
+  const user = {
+    name: 'Jane Doe',
+    email: 'janedoe@email.com',
+    cnpj: '123.456.789/01',
+    imgURL: 'https://cdn.pixabay.com/photo/2023/01/28/20/23/ai-generated-7751688_960_720.jpg',
+  }
 
   const handleSubmit = () => {
     setPopupActive(true)
   }
   const handleConfirm = () => {
     setPopupActive(false)
-    router.replace('/')
+    router.push('/')
   }
 
   return (
     <>
-      <View className="flex-1 items-center bg-white-0 gap-5 px-8 justify-center">
+      <View className="flex-1 items-center bg-white-0 gap-8 px-8 justify-center">
+        <View className="gap-3 items-center">
+          <Image
+            source={{ uri: user.imgURL }}
+            className="size-32 rounded-full"
+            resizeMode="cover"
+          />
+          <Text className="font-bold text-xl text-gray-500">
+            Alterar foto
+          </Text>
+        </View>
+
         <View className="w-full gap-2">
           <Input.Root>
-            <Input.Field placeholder="Nome" />
+            <Input.Field placeholder="Nome" value={user.name} editable={false} />
           </Input.Root>
 
           <Input.Root>
-            <Input.Field placeholder="E-mail" />
+            <Input.Field placeholder="E-mail" value={user.email} editable={false} />
           </Input.Root>
 
           <Input.Root>
-            <Input.Field placeholder="CNPJ" />
+            <Input.Field placeholder="CNPJ" value={user.cnpj} editable={false} />
           </Input.Root>
 
           <Input.Root>
