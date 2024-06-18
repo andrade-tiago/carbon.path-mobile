@@ -2,12 +2,12 @@ import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps } from
 import { LinearGradient } from "expo-linear-gradient"
 import { colors } from "@/styles/colors"
 
-type Props = TouchableOpacityProps & {
+interface ButtonProps extends TouchableOpacityProps {
   title: string
   isLoading?: boolean 
 }
 
-export function Button({ title, isLoading = false, disabled = false, ...rest }: Props) {
+export function Button({ title, isLoading = false, disabled = false, ...rest }: ButtonProps) {
   return (
     <TouchableOpacity
       activeOpacity={.7}
@@ -26,7 +26,7 @@ export function Button({ title, isLoading = false, disabled = false, ...rest }: 
         {isLoading ? (
           <ActivityIndicator className="text-white-0" />
         ): (
-          <Text className="text-white-0 text-base">{title}</Text>
+          <Text className="text-white-0 text-base font-medium">{title}</Text>
         )}
       </LinearGradient>
     </TouchableOpacity>
