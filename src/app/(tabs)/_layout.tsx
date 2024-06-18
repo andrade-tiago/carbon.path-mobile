@@ -10,8 +10,8 @@ export default function TabLayout() {
   // }
   return (
     <Tabs screenOptions={{
-      tabBarActiveTintColor: colors.primary[5],
-      tabBarInactiveTintColor: colors.neutrals[5],
+      tabBarActiveTintColor: colors.primary[4],
+      tabBarInactiveTintColor: colors.neutrals[3],
       headerTitleAlign: 'center',
       headerTitleStyle: { fontWeight: 'bold' },
       tabBarStyle: { height: 64 },
@@ -28,21 +28,21 @@ export default function TabLayout() {
         name="calculator"
         options={{
           title: 'Calculadora',
-          tabBarIcon: ({ color }) => <SimpleLineIcons name="calculator" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <SimpleLineIcons name="calculator" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="challenges"
         options={{
           title: 'Desafios',
-          tabBarIcon: ({ color }) => <Ionicons name="trophy-outline" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="trophy-outline" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
         name="hanking"
         options={{
           title: 'Hanking',
-          tabBarIcon: ({ color }) => <Feather name="award" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="award" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
