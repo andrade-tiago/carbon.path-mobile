@@ -10,6 +10,8 @@ import { Image, Text, View } from "react-native";
 export default function ProfileScreen() {
   const [isUpdatingProfile, setIsUpdatingProfile] = useState<boolean>(false)
   const [popupActive, setPopupActive] = useState<boolean>(false)
+  const [password, setPassword] = useState<string>("")
+  const [newPassword, setNewPassword] = useState<string>("")
   const user = {
     name: 'Jane Doe',
     email: 'janedoe@email.com',
@@ -19,6 +21,8 @@ export default function ProfileScreen() {
 
   const handleSubmit = () => {
     setPopupActive(true)
+    setPassword("")
+    setNewPassword("")
   }
   const handleConfirm = () => {
     setPopupActive(false)
@@ -41,7 +45,8 @@ export default function ProfileScreen() {
 
         <View className="w-full gap-2">
           <Input.Root>
-            <Input.Field placeholder="Nome" value={user.name} editable={false} />
+            <Input.Field
+              placeholder="Nome" value={user.name} editable={false} />
           </Input.Root>
 
           <Input.Root>
@@ -53,11 +58,11 @@ export default function ProfileScreen() {
           </Input.Root>
 
           <Input.Root>
-            <Input.Field placeholder="Senha antiga" />
+            <Input.Field placeholder="Senha antiga" value={password} onChangeText={setPassword} />
           </Input.Root>
 
           <Input.Root>
-            <Input.Field placeholder="Nova senha" />
+            <Input.Field placeholder="Nova senha" value={newPassword} onChangeText={setNewPassword} />
           </Input.Root>
         </View>
 
