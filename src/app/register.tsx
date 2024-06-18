@@ -25,7 +25,7 @@ export default function Register() {
       .min(8, "A senha deve ter no mínimo 8 caracteres.")
       .regex(
         /^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).+$/,
-        "A senha deve conter letras maiúsculas, minúsculas, números e carcteres especiais."
+        "A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais."
       ),
   })
 
@@ -77,21 +77,37 @@ export default function Register() {
           <Text className="text-xl text-black-3 font-bold">Crie sua conta</Text>
 
           <View className="gap-3">
-            <Input>
-              <Input.Field placeholder="Nome" keyboardType="default" onChangeText={setName} />
-            </Input>
+            <Input.Root>
+              <Input.Field
+                placeholder="Nome"
+                keyboardType="default"
+                onChangeText={setName}
+              />
+            </Input.Root>
 
-            <Input>
-              <Input.Field placeholder="E-mail" keyboardType="email-address" onChangeText={setEmail} />
-            </Input>
+            <Input.Root>
+              <Input.Field
+                placeholder="E-mail"
+                keyboardType="email-address"
+                onChangeText={setEmail}
+              />
+            </Input.Root>
 
-            <Input>
-              <Input.Field placeholder="CNPJ" keyboardType="number-pad" onChangeText={setCnpj} />
-            </Input>
+            <Input.Root>
+              <Input.Field
+                placeholder="CNPJ"
+                keyboardType="number-pad"
+                onChangeText={setCnpj}
+              />
+            </Input.Root>
 
-            <Input>
-              <Input.Field placeholder="Senha" keyboardType="visible-password" onChangeText={setPassword} />
-            </Input>
+            <Input.Root>
+              <Input.Field
+                placeholder="Senha"
+                keyboardType="visible-password"
+                onChangeText={setPassword}
+              />
+            </Input.Root>
           </View>
 
           <Button

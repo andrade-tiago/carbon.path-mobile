@@ -7,7 +7,10 @@ interface InputFieldProps extends TextInputProps {}
 export default function InputField({ className, ...props }: InputFieldProps) {
   return (
     <TextInput
-      className={twMerge("w-full text-gray-500", className)}
+      className={twMerge(
+        "w-full text-gray-500 text-base",
+        className,
+      )}
       {...props}
     />
   )

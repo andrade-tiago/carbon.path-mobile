@@ -67,21 +67,21 @@ export default function Login() {
           <Text className="text-xl text-black-3 font-bold">Acesse sua conta</Text>
 
           <View className="gap-3">
-            <Input>
+            <Input.Root>
               <Input.Field
                 placeholder="E-mail"
                 keyboardType="email-address"
                 onChangeText={setEmail}
               />
-            </Input>
+            </Input.Root>
 
-            <Input>
+            <Input.Root>
               <Input.Field
                 placeholder="Senha"
                 keyboardType="visible-password"
                 onChangeText={setPassword}
               />
-            </Input>
+            </Input.Root>
           </View>
 
           <View className="flex-row w-full justify-between">

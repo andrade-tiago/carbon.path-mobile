@@ -8,7 +8,7 @@ interface InputRootProps {
 
 export default function InputRoot({ children }: InputRootProps) {
   return (
-    <View style={{ width: '100%', backgroundColor: colors.white[0], borderRadius: 8 }}>
+    <View className="w-full rounded-lg bg-gray-100 p-4 shadow shadow-gray-600">
       { children }
     </View>
   )
